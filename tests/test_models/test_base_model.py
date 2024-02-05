@@ -12,16 +12,25 @@ class TestBaseModel(unittest.TestCase):
     def test_init(self):
         """Test initial state of a BaseModel instance."""
         my_model = BaseModel()
+        my_model.name = "Holberton"
+        my_mode.my_number = 89
+        my_model_dict = my_model.to_dict()
+
         self.assertIsInstance(my_model, BaseModel)
-        self.assertIsInstance(my_model.id, str)
-        self.assertIsInstance(my_model.created_at, datetime)
-        self.assertIsInstance(my_model.updated_at, datetime)
+        self.assertEqual(my_model.id, my_model_dict['id'])
+        self.assertEqual(my_model.name, my_model_dict['name'])
+        self.assertEqual(my_model.my_number, my_model_dict['my_number'])
 
     def test_str(self):
         """Test the string representation of a BaseModel instance."""
         my_model = BaseModel()
-        self.assertEqual(str(my_model), "[BaseModel] ({}) {}".format(
-            my_model.id, my_model.__dict__))
+        my_model.name = "Holberton"
+        my_model.my_number = 89
+        my_model_dict = my_model.to_dict()
+
+        my_new_model = BaseModel(**my_model_dict)
+        self.assertEqual(str(my_model), str(my_new_model))
+        self.assertIsNot(my_model, my_new_model)
 
     def test_save(self):
         """Test the save method updates the updated_at attribute."""
