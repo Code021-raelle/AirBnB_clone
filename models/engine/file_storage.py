@@ -38,11 +38,7 @@ class FileStorage:
         except FileNotFoundError:
             pass
 
-    def classes(self):
+    def some_function():
         """Classes and their reference"""
         from models.user import User
         from models.base_model import BaseModel
-
-        classes = {"User": User,
-                "BaseModel": BaseModel}
-        return classes
