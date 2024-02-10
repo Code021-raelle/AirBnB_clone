@@ -79,13 +79,13 @@ class TestHBNBCommand(unittest.TestCase):
 
     def test_update_no_instance_found(self):
         output = self.capture_stdout(
-                f"update BaseModel 12345 {'{'name': 'test_name'}'}")
+                f"update BaseModel 12345 `({'name': 'test_name'})`")
         self.assertEqual(output, "** no instance found **")
 
     def test_update_instance_invalid_id(self):
         output = self.capture_stdout("create BaseModel")
         output = self.capture_stdout(
-                f"update BaseModel invalid_id {'{'name': 'test_name'}'}")
+                f"update BaseModel invalid_id `({'name': 'test_name'})`")
         self.assertEqual(output, "** no instance found **")
 
     def test_update_missing_attributes(self):

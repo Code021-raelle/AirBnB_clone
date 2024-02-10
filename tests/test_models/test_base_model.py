@@ -12,8 +12,8 @@ class TestBaseModel(unittest.TestCase):
     def test_init(self):
         """Test initial state of a BaseModel instance."""
         my_model = BaseModel()
-        my_model.name = "Holberton"
-        my_mode.my_number = 89
+        my_model.name = "My_First_model"
+        my_model.my_number = 89
         my_model_dict = my_model.to_dict()
 
         self.assertIsInstance(my_model, BaseModel)
@@ -24,7 +24,7 @@ class TestBaseModel(unittest.TestCase):
     def test_str(self):
         """Test the string representation of a BaseModel instance."""
         my_model = BaseModel()
-        my_model.name = "Holberton"
+        my_model.name = "My_First_model"
         my_model.my_number = 89
         my_model_dict = my_model.to_dict()
 
@@ -42,7 +42,7 @@ class TestBaseModel(unittest.TestCase):
     def test_to_dict(self):
         """Test the to_dict method"""
         my_model = BaseModel()
-        my_model.name = "Holberton"
+        my_model.name = "My_First_Model"
         my_model.my_number = 89
         my_model_json = my_model.to_dict()
 
