@@ -7,11 +7,11 @@ from io import StringIO
 from console import HBNBCommand
 
 
-class  TestHBNBCommand(unittest.TestCase):
+class TestHBNBCommand(unittest.TestCase):
     """Class to test HBNBCommand methods"""
 
-    def  setUp(self):
-        self.console =  HBNBCommand()
+    def setUp(self):
+        self.console = HBNBCommand()
 
     def tearDown(self):
         self.console = None
@@ -19,8 +19,8 @@ class  TestHBNBCommand(unittest.TestCase):
     def capture_stdout(self, command):
         with patch('sys.stdout', new=StringIO()) as f:
             self.console.onecmd(command)
-            return  f.getvalue().strip()
-        
+            return f.getvalue().strip()
+
     def test_help(self):
         help_text = self.capture_stdout("help")
         self.assertTrue("Documented commands" in help_text)
@@ -98,7 +98,7 @@ class  TestHBNBCommand(unittest.TestCase):
         output = self.capture_stdout("invalid_command")
         self.assertEqual(output, "** Unknown syntax: invalid_command")
 
-    def test_quit(self)
+    def test_quit(self):
         with self.assertRaises(SystemExit):
             self.console.onecmd("quit")
 
@@ -113,7 +113,7 @@ class  TestHBNBCommand(unittest.TestCase):
             self.console.onecmd(f"show BaseModel {obj_id}")
             self.assertTrue(obj_id in f.getvalue().strip())
 
-    def  test_show_invalid_id(self):
+    def test_show_invalid_id(self):
         with patch('sys.stdout', new=StringIO()) as f:
             self.console.onecmd("create BaseModel")
             self.console.onecmd("show BaseModel 12345")
