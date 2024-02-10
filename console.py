@@ -100,6 +100,8 @@ class HBNBCommand(cmd.Cmd):
         print([str(obj) for obj in objects.values()
             if type(obj).__name__ == args[0]])
 
+
+
     def do_update(self, arg):
         """Updates an instance based on the class name and id"""
         args = arg.split()
@@ -140,11 +142,13 @@ class HBNBCommand(cmd.Cmd):
             if isinstance(obj, User)])
         print(count)
 
+
     def do_State_count(self, arg):
         """Counts the number of State instances"""
         count = len([obj for obj in storage.all().values()
             if isinstance(obj, State)])
         print(count)
+
 
     def do_City_count(self, arg):
         """Counts the number of City instances"""
@@ -152,17 +156,20 @@ class HBNBCommand(cmd.Cmd):
             if isinstance(obj, City)])
         print(count)
 
+
     def do_Place_count(self, arg):
         """Counts the number of Place instances"""
         count = len([obj for obj in storage.all().values()
             if isinstance(obj, Place)])
         print(count)
 
+
     def do_Amenity_count(self, arg):
         """Counts the number of Amenity instances"""
         count = len([obj for obj in storage.all().values()
             if isinstance(obj, Amenity)])
         print(count)
+
 
     def do_Review_count(self, arg):
         """Counts the number of Review instances"""
