@@ -124,7 +124,7 @@ class HBNBCommand(cmd.Cmd):
             return
         try:
             dictionary = eval(" ".join(args[2:]))
-        except:
+        except ValueError as e:
             print("** invalid dictionary **")
             return
         obj = all_objs[key]
@@ -136,32 +136,38 @@ class HBNBCommand(cmd.Cmd):
 
     def do_User_count(self, arg):
         """Counts the number of User instances"""
-        count = len([obj for obj in storage.all().values() if isinstance(obj, User)])
+        count = len([obj for obj in storage.all().values()
+            if isinstance(obj, User)])
         print(count)
 
     def do_State_count(self, arg):
         """Counts the number of State instances"""
-        count = len([obj for obj in storage.all().values() if isinstance(obj, State)])
+        count = len([obj for obj in storage.all().values()
+            if isinstance(obj, State)])
         print(count)
 
     def do_City_count(self, arg):
         """Counts the number of City instances"""
-        count = len([obj for obj in storage.all().values() if isinstance(obj, City)])
+        count = len([obj for obj in storage.all().values()
+            if isinstance(obj, City)])
         print(count)
 
     def do_Place_count(self, arg):
         """Counts the number of Place instances"""
-        count = len([obj for obj in storage.all().values() if isinstance(obj, Place)])
+        count = len([obj for obj in storage.all().values()
+            if isinstance(obj, Place)])
         print(count)
 
     def do_Amenity_count(self, arg):
         """Counts the number of Amenity instances"""
-        count = len([obj for obj in storage.all().values() if isinstance(obj, Amenity)])
+        count = len([obj for obj in storage.all().values()
+            if isinstance(obj, Amenity)])
         print(count)
 
     def do_Review_count(self, arg):
         """Counts the number of Review instances"""
-        count = len([obj for obj in storage.all().values() if isinstance(obj, Review)])
+        count = len([obj for obj in storage.all().values()
+            if isinstance(obj, Review)])
         print(count)
 
 
