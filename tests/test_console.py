@@ -58,7 +58,8 @@ class TestHBNBCommand(unittest.TestCase):
     def test_update(self):
         output = self.capture_stdout("create BaseModel")
         obj_id = output.split()[-1]
-        output = self.capture_stdout(f"update BaseModel {obj_id} name 'test_name'")
+        output = self.capture_stdout(
+                f"update BaseModel {obj_id} name 'test_name'")
         self.assertTrue("- updated -" in ouput)
 
     def test_show_instance_not_found(self):
@@ -72,16 +73,19 @@ class TestHBNBCommand(unittest.TestCase):
     def test_update_invalid_dictionary(self):
         output = self.capture_stdout("create BaseModel")
         obj_id = output.split()[-1]
-        output = self.capture_stdout(f"update BaseModel {obj_id} {'invalid_dictionary'}")
+        output = self.capture_stdout(
+                f"update BaseModel {obj_id} {'invalid_dictionary'}")
         self.assertEqual(output, "** invalid dictionary **")
 
     def test_update_no_instance_found(self):
-        output = self.capture_stdout(f"update BaseModel 12345 {'{'name': 'test_name'}'}")
+        output = self.capture_stdout(
+                f"update BaseModel 12345 {'{'name': 'test_name'}'}")
         self.assertEqual(output, "** no instance found **")
 
     def test_update_instance_invalid_id(self):
         output = self.capture_stdout("create BaseModel")
-        output = self.capture_stdout(f"update BaseModel invalid_id {'{'name': 'test_name'}'}")
+        output = self.capture_stdout(
+                f"update BaseModel invalid_id {'{'name': 'test_name'}'}")
         self.assertEqual(output, "** no instance found **")
 
     def test_update_missing_attributes(self):
@@ -142,7 +146,8 @@ class TestHBNBCommand(unittest.TestCase):
     def test_destroy_invalid_classname(self):
         with patch('sys.stdout', new=StringIO()) as f:
             self.console.onecmd("destroy InvalidClassName")
-            self.assertEqual(f.getvalue().strip(), "*** class doesn't exist **")
+            self.assertEqual(
+                    f.getvalue().strip(), "*** class doesn't exist **")
 
     def test_destroy_missing_instance_id(self):
         with patch('sys.stdout', new=StringIO()) as f:
