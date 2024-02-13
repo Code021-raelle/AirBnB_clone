@@ -3,6 +3,7 @@
 
 import unittest
 import sys
+import io
 from unittest.mock import patch
 from io import StringIO
 from console import HBNBCommand
@@ -82,9 +83,10 @@ class TestHBNBCommand(unittest.TestCase):
         self.assertEqual(output, "** invalid dictionary **")
 
     def test_update_no_instance_found(self):
+        obj_id = "12345"
         output = self.capture_stdout(
-                f"update BaseModel 12345 `({'name': 'test_name'})`")
-        self.assertEqual(output, "** no instance found **")
+                f"update BaseModel {obj_id} {'name': 'test_name'}")
+        self.assertEqual(output, "** no instance found **\n")
 
     def test_update_instance_invalid_id(self):
         output = self.capture_stdout("create BaseModel")
