@@ -64,7 +64,7 @@ class TestHBNBCommand(unittest.TestCase):
         obj_id = output.split()[-1]
         output = self.capture_stdout(
                 f"update BaseModel {obj_id} name 'test_name'")
-        self.assertTrue("- updated -" in ouput)
+        self.assertTrue("- updated -" in output)
 
     def test_show_instance_not_found(self):
         output = self.capture_stdout("show BaseModel 12345")
