@@ -71,7 +71,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         class_name = args[0]
-        if class_name not in classes:
+        if class_name not in [
+                BaseModel, User, State, City, Amenity, Place, Review
+                ]:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
@@ -97,7 +99,8 @@ class HBNBCommand(cmd.Cmd):
         if args[0] not in globals():
             print("** class doesn't exist **")
             return
-        print([str(obj) for obj in objects.values()
+        print([
+            str(obj) for obj in objects.values()
             if type(obj).__name__ == args[0]])
 
     def do_update(self, arg):
@@ -136,37 +139,43 @@ class HBNBCommand(cmd.Cmd):
 
     def do_User_count(self, arg):
         """Counts the number of User instances"""
-        count = len([obj for obj in storage.all().values()
+        count = len([
+            obj for obj in storage.all().values()
             if isinstance(obj, User)])
         print(count)
 
     def do_State_count(self, arg):
         """Counts the number of State instances"""
-        count = len([obj for obj in storage.all().values()
+        count = len([
+            obj for obj in storage.all().values()
             if isinstance(obj, State)])
         print(count)
 
     def do_City_count(self, arg):
         """Counts the number of City instances"""
-        count = len([obj for obj in storage.all().values()
+        count = len([
+            obj for obj in storage.all().values()
             if isinstance(obj, City)])
         print(count)
 
     def do_Place_count(self, arg):
         """Counts the number of Place instances"""
-        count = len([obj for obj in storage.all().values()
+        count = len([
+            obj for obj in storage.all().values()
             if isinstance(obj, Place)])
         print(count)
 
     def do_Amenity_count(self, arg):
         """Counts the number of Amenity instances"""
-        count = len([obj for obj in storage.all().values()
+        count = len([
+            obj for obj in storage.all().values()
             if isinstance(obj, Amenity)])
         print(count)
 
     def do_Review_count(self, arg):
         """Counts the number of Review instances"""
-        count = len([obj for obj in storage.all().values()
+        count = len([
+            obj for obj in storage.all().values()
             if isinstance(obj, Review)])
         print(count)
 
