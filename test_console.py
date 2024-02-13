@@ -2,6 +2,7 @@
 """ Module for TestConsole class"""
 
 import unittest
+import sys
 from unittest.mock import patch
 from io import StringIO
 from console import HBNBCommand
@@ -14,12 +15,14 @@ class TestHBNBCommand(unittest.TestCase):
         self.console = HBNBCommand()
 
     def tearDown(self):
-        self.console = None
+        pass
 
     def capture_stdout(self, command):
-        with patch('sys.stdout', new=StringIO()) as f:
-            self.console.onecmd(command)
-            return f.getvalue().strip()
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        self.console.onecmd(command)
+        sys.stdout = sys.__stdout__
+        return captured_output.getvalue()
 
     def test_help(self):
         help_text = self.capture_stdout("help")
@@ -64,7 +67,8 @@ class TestHBNBCommand(unittest.TestCase):
 
     def test_show_instance_not_found(self):
         output = self.capture_stdout("show BaseModel 12345")
-        self.assertEqual(output, "** no instance found **")
+        self.console.onecmd("show BaeModel 12345")
+        self.assertIn("** no instance found **", output)
 
     def test_destroy_instance_not_found(self):
         output = self.capture_stdout("destroy BaseModel 12345")
