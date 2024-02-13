@@ -1,14 +1,13 @@
 #!/usr/bin/python3
 """ BaseModel module """
 
-import json
 import uuid
 from datetime import datetime
 from models import storage
 
 
 class BaseModel:
-    """The BaseModel clsas defines common attributes and method for models"""
+    """The BaseModel class defines common attributes and method for models"""
 
     def __init__(self, *args, **kwargs):
         """Initialize a new BaseModel instance."""

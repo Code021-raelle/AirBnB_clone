@@ -3,7 +3,11 @@
 
 import unittest
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 from datetime import datetime
+from models import storage
+import json
+import uuid
 
 
 class TestBaseModel(unittest.TestCase):
@@ -54,3 +58,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(my_model_json['__class__'], 'BaseModel')
         self.assertIsInstance(my_model_json['created_at'], str)
         self.assertIsInstance(my_model_json['updated_at'], str)
+
+if __name__ == '__main__':
+    unittest.main()
