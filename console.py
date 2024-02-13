@@ -17,6 +17,10 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
 
+    def default(self, line):
+        """Handle unknown syntax errors"""
+        print("*** Unknown syntax: {}".format(line))
+        
     def do_quit(self, arg):
         """Quit command to exit the program"""
         return True
