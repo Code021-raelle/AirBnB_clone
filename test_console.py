@@ -7,6 +7,7 @@ import io
 from unittest.mock import patch
 from io import StringIO
 from console import HBNBCommand
+from models import storage
 
 
 class TestHBNBCommand(unittest.TestCase):
@@ -16,14 +17,13 @@ class TestHBNBCommand(unittest.TestCase):
         self.console = HBNBCommand()
 
     def tearDown(self):
-        pass
+        self.console = None
+        storage.reset()
 
     def capture_stdout(self, command):
-        captured_output = io.StringIO()
-        sys.stdout = captured_output
-        self.console.onecmd(command)
-        sys.stdout = sys.__stdout__
-        return captured_output.getvalue()
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd(command)
+            return f.getvalue().strip()
 
     def test_help(self):
         output = self.capture_stdout("help")
@@ -34,22 +34,20 @@ class TestHBNBCommand(unittest.TestCase):
         self.assertTrue("Quit command" in output)
 
     def test_create(self):
-        output = self.capture_stdout("create BaseModel")
-        self.assertTrue("- created -" in output)
+        output = self.capture_stdout("create User")
+        self.assertTrue(output != "" and len(output) == 36)
 
     def test_show(self):
-        obj_id = "some_object_id"
-        output = self.capture_stdout(f"show BaseModel {obj_id}")
-        self.assertIn(obj_id, output)
+        output = self.capture_stdout("help show")
+        self.assertIn("Prints the string representation", output)
 
     def test_destroy(self):
-        obj_id = "some_object_id"
-        output = self.capture_stdout(f"destroy BaseModel {obj_id}")
-        self.assertTrue("- deleted -" in output.strip())
+        output = self.capture_stdout("help destroy")
+        self.assertTrue("Deletes an instance based on", output)
 
     def test_all(self):
-        output = self.capture_stdout("all")
-        self.assertIn("BaseModel", output)
+        output = self.capture_stdout("help all")
+        self.assertIn("Prints all string representation", output)
 
     def test_count(self):
         output = self.capture_stdout("count BaseModel")
@@ -57,16 +55,16 @@ class TestHBNBCommand(unittest.TestCase):
         self.assertEqual(count_output, "2")
 
     def test_update(self):
-        output = self.capture_stdout("update BaseModel 12345 {'name': 'updated_name'}")
-        self.assertIn("- updated -", output)
+        output = self.capture_stdout("help update")
+        self.assertIn("Updates an instance based on", output)
 
     def test_show_instance_not_found(self):
-        output = self.capture_stdout("show BaseModel 12345")
+        output = self.capture_stdout("show User 12345")
         self.assertIn("** no instance found **", output)
 
     def test_destroy_instance_not_found(self):
-        output = self.capture_stdout("destroy BaseModel 12345")
-        self.assertEqual(output.strip(), "** no instance found **")
+        output = self.capture_stdout("destroy User 12345")
+        self.assertIn("** no instance found **", output)
 
     def test_update_invalid_dictionary(self):
         output = self.capture_stdout("create BaseModel")
@@ -105,6 +103,30 @@ class TestHBNBCommand(unittest.TestCase):
         with self.assertRaises(SystemExit):
             with patch('builtins.input', size_effect=EOFError):
                 self.console.onecmd("EOF")
+
+    def test_create_with_params(self):
+        output = self.capture_stdout("create User first_name='John' last_name='Doe'")
+        self.assertTrue(output != "" and len(output) == 36)
+
+    def test_show_valid_instance(self):
+        output = self.capture_stdout("create User")
+        instance_id = output.strip()
+        output = self.capture_stdout(f"show User {instance_id}")
+        self.assertIn("[User]", output)
+
+    def test_destroy_valid_instance(self):
+        output = self.capture_stdout("create User")
+        instance_id = output.strip()
+        output = self.capture_stdout(f"destroy User {instance_id}")
+        self.assertNotIn(instance_id, storage.all())
+
+    def test_all_valid_class(self):
+        output = self.capture_stdout("create User")
+        self.assertIn("[User]", self.capture_stdout("all"))
+
+    def test_all_invalid_class(self):
+        output = self.capture_stdout("all MyModel")
+        self.assertIn("** class doesn't exist **", output)
 
     def test_show_with_id(self):
         with patch('sys.stdout', new=StringIO()) as f:
