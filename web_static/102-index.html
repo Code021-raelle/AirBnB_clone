@@ -3,16 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="styles/4-common.css">
-    <link rel="stylesheet" type="text/css" href="styles/3-header.css">
-    <link rel="stylesheet" type="text/css" href="styles/3-footer.css">
-    <link rel="stylesheet" type="text/css" href="styles/6-filters.css">
-    <link rel="stylesheet" type="text/css" href="styles/100-places.css">
+    <link rel="stylesheet" type="text/css" href="styles/102-common.css">
+    <link rel="stylesheet" type="text/css" href="styles/102-header.css">
+    <link rel="stylesheet" type="text/css" href="styles/102-footer.css">
+    <link rel="stylesheet" type="text/css" href="styles/102-filters.css">
+    <link rel="stylesheet" type="text/css" href="styles/102-places.css">
     <link rel="icon" type="image/png" href="./images/icon.png">
     <title>AirBnB clone</title>
 </head>
 <body>
     <header>
+        <div class="mobile_nav">
+            <label for="main_check" class="main_nav_burguer">|||</label>
+            <input type="checkbox" id="main_check" name="main_check" class="main_nav_check">
+            <nav>
+                <ul class="nav_bar_level1">
+                    <li>
+                        <label for="second_check"><span>States</span></label>
+                        <input type="checkbox" name="second_check" id="second_check">
+                        <ul>
+                            <li><span>Arizona</span></li>
+                            <li><span>California</span></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <label for="third_check"><span>Amenities</span></label>
+                        <input type="checkbox" name="second_check" id="third_check">
+                        <ul>
+                            <li><span>Internet</span></li>
+                            <li><span>TV</span></li>
+                            <li><span>WiFi</span></li>
+                            <li><span>Kitchen</span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
     <div class="container">
         <section class="filters">

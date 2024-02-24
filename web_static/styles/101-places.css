@@ -1,6 +1,7 @@
 .places {
     display: flex;
     flex-wrap: wrap;
+    z-index: -1;
     justify-content: center;
 }
 
@@ -12,6 +13,8 @@
 }
 
 .places article {
+    display: flex;
+    flex-wrap: wrap;
     padding: 20px;
     width: 390px;
     border: 1px solid #FF5A5F;
